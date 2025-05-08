@@ -1,10 +1,21 @@
 {
   "name": "my-nodejs-app",
   "version": "1.0.0",
+  "description": "A sample Node.js project with CI pipeline",
   "scripts": {
-    "test": "jest --outputDirectory=test-results --json --coverage"
+    "test": "jest --outputFile=test-results/results.xml --json --coverage"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      ["jest-junit", {
+        "outputDirectory": "./test-results",
+        "outputName": "results.xml"
+      }]
+    ]
   },
   "devDependencies": {
-    "jest": "^29.0.0"
+    "jest": "^29.0.0",
+    "jest-junit": "^16.0.0"
   }
 }

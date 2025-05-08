@@ -6,19 +6,7 @@ pipeline {
   }
 
   stages {
-    stage('Clone Repo') {
-      steps {
-        withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'REPO_URL')]) {
-          bat 'git clone %REPO_URL%'
-          // Navigate into the cloned directory if needed
-          dir('NodeJs-Jenkins-Test') {
-            echo "Repo cloned"
-          }
-        }
-      }
-    }
-
-    stage('Install Dependencies') {
+      stage('Install Dependencies') {
       steps {
         dir('NodeJs-Jenkins-Test') {
           bat 'npm install'

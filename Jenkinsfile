@@ -17,7 +17,7 @@ pipeline {
     stage('Run Tests') {
       steps {
         dir('NodeJs-Jenkins-Test') {
-          bat 'npm test || true'  // Optional: prevent full pipeline failure if you want to still collect test reports
+          bat 'npm test'  // Optional: prevent full pipeline failure if you want to still collect test reports
           junit 'test-results/*.xml'
         }
       }

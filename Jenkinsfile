@@ -42,11 +42,5 @@ pipeline {
         archiveArtifacts artifacts: '**/coverage/**', fingerprint: true
       }
     }
-
-    failure {
-      mail to: 'gbacotich15@gmail.com',
-           subject: "Build Failed in ${env.JOB_NAME}",
-           body: "The build failed. Please check Jenkins."
-    }
   }
 }

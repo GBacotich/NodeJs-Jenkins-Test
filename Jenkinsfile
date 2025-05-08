@@ -9,7 +9,7 @@ pipeline {
     stage('Clone Repo') {
       steps {
         withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'REPO_URL')]) {
-          sh 'git clone $REPO_URL'
+          bat 'git clone $REPO_URL'
           // Navigate into the cloned directory if needed
           dir('NodeJs-Jenkins-Test') {
             echo "Repo cloned"
@@ -21,7 +21,7 @@ pipeline {
     stage('Install Dependencies') {
       steps {
         dir('NodeJs-Jenkins-Test') {
-          sh 'npm install'
+          bat 'npm install'
         }
       }
     }
@@ -29,7 +29,7 @@ pipeline {
     stage('Run Tests') {
       steps {
         dir('NodeJs-Jenkins-Test') {
-          sh 'npm test || true'  // Optional: prevent full pipeline failure if you want to still collect test reports
+          bat 'npm test || true'  // Optional: prevent full pipeline failure if you want to still collect test reports
           junit 'test-results/*.xml'
         }
       }

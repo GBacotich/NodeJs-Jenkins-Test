@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A sample Node.js project with CI pipeline",
   "scripts": {
-    "test": "jest --outputFile=test-results/results.xml --json --coverage"
+    "test": "jest --json --coverage"
   },
   "jest": {
     "reporters": [

@@ -3,13 +3,16 @@ pipeline {
 
   environment {
     NODE_ENV = 'test'
+    JEST_JUNIT_OUTPUT_DIR = 'test-results'
+    JEST_JUNIT_OUTPUT_NAME = 'results.xml'
+    JEST_JUNIT_OUTPUT = 'test-results/results.xml'
   }
 
   stages {
-      stage('Install Dependencies') {
+    stage('Install Dependencies') {
       steps {
         dir('NodeJs-Jenkins-Test') {
-          bat 'npm install'
+          bat 'npm ci'
         }
       }
     }
@@ -17,7 +20,14 @@ pipeline {
     stage('Run Tests') {
       steps {
         dir('NodeJs-Jenkins-Test') {
-          bat 'npm test'  // Optional: prevent full pipeline failure if you want to still collect test reports
+          bat 'npm test'
+        }
+      }
+    }
+
+    stage('Publish Test Results') {
+      steps {
+        dir('NodeJs-Jenkins-Test') {
           junit 'test-results/results.xml'
         }
       }
@@ -27,7 +37,7 @@ pipeline {
   post {
     always {
       dir('NodeJs-Jenkins-Test') {
-        archiveArtifacts artifacts: '**/coverage/**', fingerprint: true
+        archiveArtifacts artifacts: 'coverage/**', fingerprint: true
       }
     }
   }
